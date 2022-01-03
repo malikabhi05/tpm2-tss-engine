@@ -44,13 +44,14 @@ jobs:
           docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Launch Container
-        env:
+      - name: Launch Action
+        uses:
+          malikabhi05/test-ac/runCI@master
+        with:
           DOCKER_IMAGE: ${{ matrix.ARCH }}
           TPM2TSS_BRANCH: "${{ matrix.TPM2TSS_BRANCH }}"
           TPM2TOOLS_BRANCH: "${{ matrix.TPM2TOOLS_BRANCH }}"
           CC: gcc
-        run: ./.ci/ci.sh
       - name: failure
         if: ${{ failure() }}
         run: find -name test-suite.log | xargs cat || true
