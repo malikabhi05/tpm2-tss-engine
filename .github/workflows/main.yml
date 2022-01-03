@@ -14,13 +14,15 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Launch Container
-        env:
+      - name: Launch Action
+        uses:
+          malikabhi05/test-ac/runCI@master
+        with:
           DOCKER_IMAGE: "${{ matrix.DOCKER_IMAGE }}"
           TPM2TSS_BRANCH: "${{ matrix.TPM2TSS_BRANCH }}"
           TPM2TOOLS_BRANCH: "${{ matrix.TPM2TOOLS_BRANCH }}"
           CC: "${{ matrix.CC }}"
-        run: ./.ci/ci.sh
+          PROJECT_NAME: "tpm2-tss-engine"
       - name: failure
         if: ${{ failure() }}
         run: cat build/test-suite.log || true
