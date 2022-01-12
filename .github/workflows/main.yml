@@ -22,7 +22,7 @@ jobs:
           TPM2TSS_BRANCH: "${{ matrix.TPM2TSS_BRANCH }}"
           TPM2TOOLS_BRANCH: "${{ matrix.TPM2TOOLS_BRANCH }}"
           CC: "${{ matrix.CC }}"
-          PROJECT_NAME: "tpm2-tss-engine"
+          PROJECT_NAME: ${{ github.event.repository.name }}
       - name: failure
         if: ${{ failure() }}
         run: cat build/test-suite.log || true
@@ -48,6 +48,7 @@ jobs:
         uses:
           malikabhi05/test-ac/runCI@master
         with:
+          PROJECT_NAME: ${{ github.event.repository.name }}
           DOCKER_IMAGE: ${{ matrix.ARCH }}
           TPM2TSS_BRANCH: "${{ matrix.TPM2TSS_BRANCH }}"
           TPM2TOOLS_BRANCH: "${{ matrix.TPM2TOOLS_BRANCH }}"
@@ -65,7 +66,7 @@ jobs:
         uses:
           malikabhi05/test-ac/coverityScan@master
         with:
-          PROJECT_NAME: "tpm2-tss-engine"
+          PROJECT_NAME: ${{ github.event.repository.name }}
           ENABLE_COVERITY: true
           TPM2TSS_BRANCH: "3.0.x"
           TPM2TOOLS_BRANCH: "4.0"
